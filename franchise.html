@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Angel's Burger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" href="icon.png"/>
+
+    <script>
+      document.querySelector('.apply-form').addEventListener('submit', function(event) {
+          event.preventDefault();
+      
+          var form = this;
+          var formData = new FormData(form);
+      
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'submit_franchise.php', true);
+          xhr.onload = function() {
+              if (xhr.status === 200) {
+                  var response = JSON.parse(xhr.responseText);
+                  if (response.success) {
+                      alert('Application submitted.');
+                      form.reset();
+                      window.location.href = 'index.html'; // Redirect to index.html
+                  } else {
+                      alert('Error: ' + response.message);
+                  }
+              } else {
+                  alert('Error occurred. Please try again later.');
+              }
+          };
+          xhr.onerror = function() {
+              alert('Request failed. Please try again later.');
+          };
+          xhr.send(formData);
+      });
+      </script>
+      
+      
+    
+</head>
+
+<body>
+  <div class="banner">
+    <div class = "navbar">
+      <div class = "logo">
+        <a href="index.html">
+        <img src="logo.png" class="logo">
+        </a>
+      </div>
+      <ul>
+        <li><strong><a href="index.html">HOME</a></strong></li>
+        <li><strong><a href="franchise.html">FRANCHISE</a></strong></li>
+        <li><strong><a href="menu.html">MENU</a></strong></li>
+        <li><strong><a href="about-us.html">ABOUT US</a></strong></li>
+        <li><strong><a href="contact-us.html">CONTACT US</a></strong></li>
+      </ul>
+    </div>
+
+    <div class="content1">
+      <h1>We're Open for Franchise!</h1><br>
+      <h3>Join Our Family!</h3>
+      <div id="space"></div>
+      <p>If you're interested for franchising our brand, start by applying here and attaching your application form</p><br><br><br>
+      
+      <div class="comment-box">
+        <form action="submit_franchise.php" method="POST" enctype="multipart/form-data" class="apply-form">
+            <input type="text" placeholder="Name" name="name">
+            <input type="tel" placeholder="Phone" name="phone">
+            <input type="email" placeholder="Email" name="email">
+            <textarea rows="5" placeholder="Messages" name="messages"></textarea>
+            
+            <input type="file" id="myFile" name="application_form">
+            <button type="submit" class="submit-button1">SUBMIT APPLICATION</button>
+        </form>
+
+        
+
+    </div>
+
+    <a href="form.docx" class="link">Download Application Form</a>
+
+   
+
+  
+</body>
+</html>
